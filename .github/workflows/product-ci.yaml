@@ -1,0 +1,53 @@
+name: product service ci
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "product/**"
+      - ".github/workflows/actions/action.yaml"
+      - ".github/workflows/product-ci.yaml"
+
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "product/**"
+      - ".github/workflows/actions/action.yaml"
+      - ".github/workflows/product-ci.yaml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: ./.github/workflows/actions
+      - name: Run maven build command
+        run: mvn clean install -DskipTests -pl product -am
+      - name: Run maven test
+        run: mvn test -pl product -am
+#      - name: Unit test result
+#        uses: dorny/test-reporter@v1
+#        with:
+#          name: Product service unit test results
+#          path: "product/**/surefire-reports/*.xml"
+#          reporter: java-junit
+      - name: Log in to the Container registry
+        if: ${{ github.ref == 'refs/heads/main'}}
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push docker images
+        if: ${{ github.ref == 'refs/heads/main'}}
+        uses: docker/build-push-action@v3
+        with:
+          context: ./product
+          push: true
+          tags: ghcr.io/nguyen-nhat/shopee-product:latest

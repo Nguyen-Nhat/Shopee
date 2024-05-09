@@ -1,0 +1,18 @@
+server:
+  port:8084
+spring:
+  application:
+    name: cart_service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/shopee_cart
+    username: postgres
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+  liquibase:

@@ -1,0 +1,63 @@
+version: "1.0"
+
+services:
+  nginx:
+    image: nginx:1.25.3
+    ports:
+      - "80:80"
+    networks:
+      - shopee-network
+
+  cart:
+    build: ./cart
+    networks:
+      - shopee-network
+
+  customer:
+    build: ./customer
+    networks:
+      - shopee-network
+  inventory:
+    build: ./inventory
+    networks:
+      - shopee-network
+
+  location:
+    build: ./location
+    networks:
+      - shopee-network
+
+  order:
+    build: ./order
+    networks:
+      - shopee-network
+
+  payment:
+    build: ./payment
+    networks:
+      - shopee-network
+
+  product:
+    build: ./product
+    networks:
+      - shopee-network
+
+  promotion:
+    build: ./promotion
+    networks:
+      - shopee-network
+
+  rating:
+    build: ./rating
+    networks:
+      - shopee-network
+
+  tax:
+    build: ./tax
+    networks:
+      - shopee-network
+
+networks:
+  shopee-network:
+    driver: bridge
+    name: shopee-network
