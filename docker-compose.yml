@@ -10,50 +10,60 @@ services:
 
   cart:
     build: ./cart
+    image: ghcr.io/nguyen-nhat/shopee-cart:latest
     networks:
       - shopee-network
 
   customer:
     build: ./customer
+    image: ghcr.io/nguyen-nhat/shopee-customer:latest
     networks:
       - shopee-network
   inventory:
     build: ./inventory
+    image: ghcr.io/nguyen-nhat/shopee-inventory:latest
     networks:
       - shopee-network
 
   location:
     build: ./location
+    image: ghcr.io/nguyen-nhat/shopee-location:latest
     networks:
       - shopee-network
 
   order:
     build: ./order
+    image: ghcr.io/nguyen-nhat/shopee-order:latest
     networks:
       - shopee-network
 
   payment:
     build: ./payment
+    image: ghcr.io/nguyen-nhat/shopee-payment:latest
     networks:
       - shopee-network
 
   product:
     build: ./product
+    image: ghcr.io/nguyen-nhat/shopee-product:latest
     networks:
       - shopee-network
 
   promotion:
     build: ./promotion
+    image: ghcr.io/nguyen-nhat/shopee-promotion:latest
     networks:
       - shopee-network
 
   rating:
     build: ./rating
+    image: ghcr.io/nguyen-nhat/shopee-rating:latest
     networks:
       - shopee-network
 
   tax:
     build: ./tax
+    image: ghcr.io/nguyen-nhat/shopee-tax:latest
     networks:
       - shopee-network
 
